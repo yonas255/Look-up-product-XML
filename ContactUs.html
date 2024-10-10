@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Contact Us</title>
+<link rel="stylesheet" type="text/css" href="css/contactusStyle.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+   <script src="js/main.js"> </script>
+
+</head>
+<body><!-- This is the start of the web page-->
+	
+	
+	<!----navigation bar Section start---->
+
+	<div class="hero">
+		<nav>
+		<a href="file:///C:/Users/yonas/OneDrive%20-%20City%20of%20Dublin%20ETB/WEB%20AUTO%202/i%20html_css_js_web_project_Yonas%20Haftom/index.html" style= "text-decoration:none;"><h2   onclick="location.href='file:///C:/Users/yonas/OneDrive%20-%20City%20of%20Dublin%20ETB/WEB%20AUTO%202/i%20html_css_js_web_project_Yonas%20Haftom/index.html'"   class="logo">NI<span>KE</span></h2></a>
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="productList.html">Search</a></li>
+				<li><a href="ContactUs.html">Contact Us</a></li>
+			</ul>
+		</nav>
+		<h2>&nbsp;</h2>
+		<div class="container">
+		
+  <div style="text-align:center">
+  
+    <h2>Contact Us</h2>
+    <p>Swing by for a cup of coffee, or leave us a message:</p>
+  </div>
+  <div class="row">
+    <div class="column">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2381.68307642149!2d-6.245567723555244!3d53.348929172290084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48670e8cd86e97e7%3A0x6d51b774ee7fa935!2sNational%20College%20of%20Ireland!5e0!3m2!1sen!2sie!4v1698851304572!5m2!1sen!2sie" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
+    </div>
+    <div class="column">
+      <form action="/action_page.php">
+        <label for="fname">Name</label>
+        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+        <label for="emailadd">Email</label>
+        <input type="text" onblur="validateEmail(this);" required>
+        <label for="country">Country</label>
+        <select id="country" name="country">
+		<option value="australia">Ireland</option>
+		<option value="australia">United Kingdom</option>
+          <option value="australia">Australia</option>
+          <option value="canada">Canada</option>
+          <option value="usa">USA</option>
+        </select>
+        <label for="subject">Subject</label>
+        <textarea id="subject" name="subject" placeholder="Write something.." style="height:150px"></textarea>
+		
+    <span id="status" onclick="submitForm()">Submit</span>
+<script>
+    function submitForm() {
+        alert("Thanks for contacting us! We will get back to you soon!");
+    }
+</script>
+<h2>&nbsp;</h2>
+
+<h1 id="myBar" style="color:aqua;"></h1>
+
+
+      </form>
+	  
+    </div>
+  </div>
+</div>
+</div>
+	 
+		<h2>&nbsp;</h2>
+
+<div class="contact-me">
+		<p>"Don't believe you have to be like anybody to be somebody..."</p>
+		<button class="button-two" onclick="window.location.href='http://localhost/xmlProjectYonasHaftom/index.html'">See More</button>
+	</div>
+
+<!----footer start-------->
+	<footer>
+		<p id="mytext" >NIKE</p>
+		<p>For more information and interaction - please click on the link below to Connect with us:</p>
+		<div class="social">
+			<a href="https://www.facebook.com/NCIRL"><i class="fab fa-facebook-f"></i></a>
+			<a href="https://www.instagram.com/ncirl/"><i class="fab fa-instagram"></i></a>
+			<a href="https://twitter.com/NCIRL"><i class="fab fa-dribbble"></i></a>
+		</div>
+		<p class="end">Yonas Haftom &copy; | 2023
+		<a href="https://www.w3schools.com/html/default.asp">| HTML Project</a>
+	    <a href="https://www.w3schools.com/css/default.asp">| CSS Tutorial |</a>
+		<a href="index.html">| Home</a></p>
+	</footer>
+
+</body>
+</html>
