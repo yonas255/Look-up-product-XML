@@ -11,8 +11,8 @@
         }
 
         function displayResult() {
-            xml = loadXMLDoc("product.xml");
-            xsl = loadXMLDoc("style.xsl");
+            xml = loadXMLDoc("../product.xml");
+            xsl = loadXMLDoc("../style.xsl");
             // code for IE
 			if (!xml || !xsl) {
 			console.error("Error loading XML or XSL");
