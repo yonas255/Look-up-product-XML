@@ -1,4 +1,3 @@
-
 function loadXMLDoc(dname, callback) {
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", dname, true);
@@ -27,20 +26,21 @@ function displayResult() {
                 return;
             }
 
-            // Code for IE
-            if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+            // Check if the browser is IE or Edge
+            if (window.ActiveXObject || xsl && xsl.xml) {
                 let ex = xml.transformNode(xsl);
                 document.getElementById("productCatalog").innerHTML = ex;
-            }
-            // Code for modern browsers
+            } 
+            // For modern browsers
             else if (document.implementation && document.implementation.createDocument) {
                 let xsltProcessor = new XSLTProcessor();
                 xsltProcessor.importStylesheet(xsl);
                 let resultDocument = xsltProcessor.transformToFragment(xml, document);
-
+                
                 console.log(resultDocument);
 
                 if (resultDocument) {
+                    document.getElementById("productCatalog").innerHTML = ""; // Clear existing content
                     document.getElementById("productCatalog").appendChild(resultDocument);
                 } else {
                     console.error("Error: resultDocument is null or undefined.");
@@ -52,9 +52,11 @@ function displayResult() {
     });
 }
 
-		window.onload = function() {
-			displayResult();
-		};
+// Ensure you call displayResult on page load
+window.onload = displayResult;
+
+
+		
  
  var message = "Good Afternoon Wellcome to my Web Page";
 i=0;
