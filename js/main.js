@@ -1,19 +1,23 @@
 function loadXMLDoc(dname, callback) {
-    let xhttp = new XMLHttpRequest();
+    let xhttp = new XMLHttpRequest(); // Declare xhttp within the function
     xhttp.open("GET", dname, true);
+    
+    // Define the onreadystatechange handler
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
             if (this.status === 200) {
-                callback(this.responseXML); // Call the callback function with the response
+                callback(this.responseXML); // Call the callback with the responseXML
             } else {
                 console.error("Error loading " + dname + ": " + this.status);
             }
         }
     };
-    xhttp.send();
+    
+    xhttp.send(); // Send the request
 }
 
 function displayResult() {
+    // Load XML and XSL files using the loadXMLDoc function
     loadXMLDoc("product.xml", function(xml) {
         if (!xml) {
             console.error("Error loading XML");
@@ -26,17 +30,15 @@ function displayResult() {
                 return;
             }
 
-            // Check if the browser is IE or Edge
+            // Check for browser compatibility for XSLT transformation
             if (window.ActiveXObject || xsl && xsl.xml) {
                 let ex = xml.transformNode(xsl);
                 document.getElementById("productCatalog").innerHTML = ex;
-            } 
-            // For modern browsers
-            else if (document.implementation && document.implementation.createDocument) {
+            } else if (document.implementation && document.implementation.createDocument) {
                 let xsltProcessor = new XSLTProcessor();
                 xsltProcessor.importStylesheet(xsl);
                 let resultDocument = xsltProcessor.transformToFragment(xml, document);
-                
+
                 console.log(resultDocument);
 
                 if (resultDocument) {
@@ -53,7 +55,8 @@ function displayResult() {
 }
 
 // Ensure you call displayResult on page load
-window.onload = displayResult;
+window.onload = displayResult; // This triggers displayResult when the window loads
+
 
 
 		
