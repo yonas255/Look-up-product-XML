@@ -1,45 +1,57 @@
 
-        function loadXMLDoc(dname) {
-            if (window.XMLHttpRequest) {
-                xhttp = new XMLHttpRequest();
+function loadXMLDoc(dname, callback) {
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("GET", dname, true);
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            if (this.status === 200) {
+                callback(this.responseXML); // Call the callback function with the response
             } else {
-                xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                console.error("Error loading " + dname + ": " + this.status);
             }
-            xhttp.open("GET", dname, true);
-            xhttp.send();
-            return xhttp.responseXML;
+        }
+    };
+    xhttp.send();
+}
+
+function displayResult() {
+    loadXMLDoc("product.xml", function(xml) {
+        if (!xml) {
+            console.error("Error loading XML");
+            return;
         }
 
-        function displayResult() {
-            xml = loadXMLDoc("product.xml");
-            xsl = loadXMLDoc("style.xsl");
-            // code for IE
-			if (!xml || !xsl) {
-			console.error("Error loading XML or XSL");
-			return;
-			}
-			
+        loadXMLDoc("style.xsl", function(xsl) {
+            if (!xsl) {
+                console.error("Error loading XSL");
+                return;
+            }
+
+            // Code for IE
             if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
-                ex = xml.transformNode(xsl);
+                let ex = xml.transformNode(xsl);
                 document.getElementById("productCatalog").innerHTML = ex;
             }
-            // code for Chrome, Firefox, Opera, etc.
+            // Code for modern browsers
             else if (document.implementation && document.implementation.createDocument) {
-                xsltProcessor = new XSLTProcessor();
+                let xsltProcessor = new XSLTProcessor();
                 xsltProcessor.importStylesheet(xsl);
-                resultDocument = xsltProcessor.transformToFragment(xml, document);
-				
-				 console.log(resultDocument);
-				 
+                let resultDocument = xsltProcessor.transformToFragment(xml, document);
+
+                console.log(resultDocument);
+
                 if (resultDocument) {
-				document.getElementById("productCatalog").appendChild(resultDocument);
-			} else {
-				console.error("Error: resultDocument is null or undefined.");
-			}
-			} else {
-				console.error("Browser does not support XSLT.");
-    }
+                    document.getElementById("productCatalog").appendChild(resultDocument);
+                } else {
+                    console.error("Error: resultDocument is null or undefined.");
+                }
+            } else {
+                console.error("Browser does not support XSLT.");
+            }
+        });
+    });
 }
+
 		window.onload = function() {
 			displayResult();
 		};
