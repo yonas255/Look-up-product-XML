@@ -1,23 +1,24 @@
 function loadXMLDoc(dname, callback) {
-    let xhttp = new XMLHttpRequest(); // Declare xhttp within the function
+    const xhttp = new XMLHttpRequest(); // Declare xhttp here
+
+    // Set up the request
     xhttp.open("GET", dname, true);
-    
+
     // Define the onreadystatechange handler
     xhttp.onreadystatechange = function () {
-        if (this.readyState === 4) {
-            if (this.status === 200) {
-                callback(this.responseXML); // Call the callback with the responseXML
+        if (this.readyState === 4) { // Check if the request is complete
+            if (this.status === 200) { // Check if the request was successful
+                callback(this.responseXML); // Call the callback function with the loaded XML
             } else {
                 console.error("Error loading " + dname + ": " + this.status);
             }
         }
     };
-    
+
     xhttp.send(); // Send the request
 }
 
 function displayResult() {
-    // Load XML and XSL files using the loadXMLDoc function
     loadXMLDoc("product.xml", function(xml) {
         if (!xml) {
             console.error("Error loading XML");
@@ -30,20 +31,18 @@ function displayResult() {
                 return;
             }
 
-            // Check for browser compatibility for XSLT transformation
+            // Perform XSLT transformation
             if (window.ActiveXObject || xsl && xsl.xml) {
-                let ex = xml.transformNode(xsl);
-                document.getElementById("productCatalog").innerHTML = ex;
+                const ex = xml.transformNode(xsl);
+                document.getElementById("productCatalog").innerHTML = ex; // Set the HTML content
             } else if (document.implementation && document.implementation.createDocument) {
-                let xsltProcessor = new XSLTProcessor();
+                const xsltProcessor = new XSLTProcessor();
                 xsltProcessor.importStylesheet(xsl);
-                let resultDocument = xsltProcessor.transformToFragment(xml, document);
-
-                console.log(resultDocument);
+                const resultDocument = xsltProcessor.transformToFragment(xml, document);
 
                 if (resultDocument) {
                     document.getElementById("productCatalog").innerHTML = ""; // Clear existing content
-                    document.getElementById("productCatalog").appendChild(resultDocument);
+                    document.getElementById("productCatalog").appendChild(resultDocument); // Append new content
                 } else {
                     console.error("Error: resultDocument is null or undefined.");
                 }
@@ -54,8 +53,9 @@ function displayResult() {
     });
 }
 
-// Ensure you call displayResult on page load
-window.onload = displayResult; // This triggers displayResult when the window loads
+// Call displayResult when the window loads
+window.onload = displayResult;
+
 
 
 
